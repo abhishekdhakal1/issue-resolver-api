@@ -1,18 +1,14 @@
-require("dotenv").config();
-const express = require("express");
-const connectDB = require("./src/shared/db");
-
-const { issueRoutes } = require("./src/features/index");
+require('dotenv').config();
+const express = require('express');
+const connectDB = require('./src/shared/db');
+const { issueRoutes } = require('./src/features');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
 
 connectDB();
 
-app.use(express.json());
+app.use('/api/v1/issues', issueRoutes);
 
-app.use("/api/v1/issues", issueRoutes);
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
