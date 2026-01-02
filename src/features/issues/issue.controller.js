@@ -2,7 +2,7 @@ const Issue = require("./issue.model");
 
 exports.createIssue = async (req, res) => {
   try {
-    const issue = await Issue.create({ ...req.body, student: req.user.id });
+    const issue = await Issue.create({ ...req.body });
     res.status(201).json({ success: true, data: issue });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });

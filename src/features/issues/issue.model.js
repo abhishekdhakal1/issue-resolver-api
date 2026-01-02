@@ -5,8 +5,8 @@ const issueSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     student: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
+      // ref: "User",
       required: true,
     },
     status: { type: String, enum: ["open", "resolved"], default: "open" },
