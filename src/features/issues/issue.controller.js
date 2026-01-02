@@ -9,6 +9,24 @@ exports.createIssue = async (req, res) => {
   }
 };
 
+exports.showIssue = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const issue = await Issue.findById(_id).populate("student");
+
+    if (!issue) {
+      return res.status(404).json({ success: false, error: "Issue not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: issue,
+    });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Server Error" });
+  }
+};
+
 exports.resolveIssue = async (req, res) => {
   try {
     const issue = await Issue.findByIdAndUpdate(
