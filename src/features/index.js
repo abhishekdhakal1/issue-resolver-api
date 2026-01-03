@@ -1,7 +1,5 @@
-const issueRoutes = require("./issues/issue.routes");
-const Issue = require("./issues/issue.model");
+const Routes = require("./issues/issue.routes");
 
 module.exports = {
-  issueRoutes,
-  Issue,
+  Routes
 };

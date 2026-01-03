@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { createIssue, resolveIssue, showIssue } = require("./issue.controller");
-const { protect, authorize } = require("../auth/middleware");
+const { createIssue, showIssue, showAllIssue } = require("./issue.controller");
+const { protect } = require("../auth/middleware");
 
-router.route("/").post(protect, createIssue);
-// router.route("/:id").get(protect, showIssue);
-// router.route("/:id/resolve").patch(protect, resolveIssue);
+router.route("/").post(protect, createIssue).get(protect, showAllIssue);
+router.route("/:category").get(protect, showIssue);
 
 module.exports = router;
