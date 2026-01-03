@@ -2,20 +2,24 @@ const mongoose = require("mongoose");
 
 const issueSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    student: {
+    issueTitle: { type: String, required: true },
+    category: {
       type: String,
-      // ref: "User",
       required: true,
+      enum: [
+        "Facilities",
+        "Safety",
+        "Technology",
+        "Classroom",
+        "Maintenance",
+        "Other",
+      ],
     },
-    status: { type: String, enum: ["open", "resolved"], default: "open" },
-    adminComment: { type: String },
-    resolvedAt: { type: Date },
+    location: { type: String, required: true },
+    description: { type: String, required: true },
   },
   { timestamps: true }
 );
 
 const Issue = mongoose.model("Issue", issueSchema);
-
 module.exports = Issue;

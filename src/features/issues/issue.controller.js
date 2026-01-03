@@ -9,38 +9,39 @@ exports.createIssue = async (req, res) => {
   }
 };
 
-exports.showIssue = async (req, res) => {
-  try {
-    const { _id } = req.params;
-    const issue = await Issue.findById(_id).populate("student");
+// exports.showIssue = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     console.log("Searching for ID:", id); // Check if ID is coming through
 
-    if (!issue) {
-      return res.status(404).json({ success: false, error: "Issue not found" });
-    }
+//     const issue = await Issue.findById(id); // Temporarily remove .populate
+//     console.log("Database Result:", issue); // Check if DB found anything
 
-    res.status(200).json({
-      success: true,
-      data: issue,
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, error: "Server Error" });
-  }
-};
+//     if (!issue) {
+//       return res.status(404).json({ success: false, error: "Issue not found" });
+//     }
 
-exports.resolveIssue = async (req, res) => {
-  try {
-    const issue = await Issue.findByIdAndUpdate(
-      req.params.id,
-      {
-        status: "resolved",
-        adminComment: req.body.comment,
-        resolvedAt: Date.now(),
-      },
-      { new: true }
-    );
-    if (!issue) return res.status(404).json({ message: "Not Found" });
-    res.status(200).json({ success: true, data: issue });
-  } catch (err) {
-    res.status(400).json({ success: false, error: err.message });
-  }
-};
+//     res.status(200).json({ success: true, data: issue });
+//   } catch (err) {
+//     console.error("Error details:", err); // See the actual error message
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// };
+
+// exports.resolveIssue = async (req, res) => {
+//   try {
+//     const issue = await Issue.findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         status: "resolved",
+//         adminComment: req.body.comment,
+//         resolvedAt: Date.now(),
+//       },
+//       { new: true }
+//     );
+//     if (!issue) return res.status(404).json({ message: "Not Found" });
+//     res.status(200).json({ success: true, data: issue });
+//   } catch (err) {
+//     res.status(400).json({ success: false, error: err.message });
+//   }
+// };
