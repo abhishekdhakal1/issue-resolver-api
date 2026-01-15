@@ -2,7 +2,6 @@ const Issue = require("./issue.model");
 
 exports.createIssue = async (req, res) => {
   try {
-   // console.log("Data received:", req.body);
     const issue = await Issue.create({ ...req.body });
     res.status(201).json({ success: true, data: issue });
   } catch (err) {
@@ -22,7 +21,6 @@ exports.filterIssueByCategory = async (req, res) => {
 
     res.status(200).json({ success: true, data: issue });
   } catch (err) {
-    //console.error("Error details:", err); 
     res.status(500).json({ success: false, error: err.message });
   }
 };
@@ -37,8 +35,6 @@ exports.showAllIssue = async (req, res) => {
 
     res.status(200).json({ success: true, data: issue });
   } catch (err) {
-    //console.error("Error details:", err); 
     res.status(500).json({ success: false, error: err.message });
   }
 };
-
