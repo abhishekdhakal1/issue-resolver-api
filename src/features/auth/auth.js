@@ -1,15 +1,15 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import users from "../users/user.model.js"; // Ensure file extension is present if using ESM
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const User = require("../users/user.model");
 
-export async function register(name, email, password, role) {
+exports.register = async (name, email, password, role) => {
   const hashedPassword = await bcrypt.hash(password, 10);
-  users.create({ name, email, password: hashedPassword, role });
+  await User.create({ name, email, password: hashedPassword, role });
   return "User Registered!";
-}
+};
 
-export async function login(email, password) {
-  const user = users.find((u) => u.email === email);
+exports.login = async (email, password) => {
+  const user = await User.findOne({ email }).select("+password");
   if (!user) throw new Error("User not found!");
 
   const isMatch = await bcrypt.compare(password, user.password);
@@ -19,4 +19,4 @@ export async function login(email, password) {
     expiresIn: "1h",
   });
   return { token, user };
-}
+};
